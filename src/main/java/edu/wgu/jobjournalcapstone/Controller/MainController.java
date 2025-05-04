@@ -1,13 +1,29 @@
 package edu.wgu.jobjournalcapstone.Controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import edu.wgu.jobjournalcapstone.Data.DAO.UserDAO;
+import edu.wgu.jobjournalcapstone.Data.Entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Controller
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin("http://localhost:4200")
 public class MainController {
+
+    @Autowired
+    private UserDAO userDAO;
+
     @GetMapping("/")
-    public void index() {
-        System.out.println("Test Controller Called");
+    public List<User> getUsers() {
+
+
+        List<User> users = userDAO.findAll();
+
+        return users;
     }
 }
