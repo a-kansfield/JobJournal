@@ -7,8 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
     @GetMapping("/")
-    public ModelAndView index() {
-        ModelAndView response = new ModelAndView("index");
-        return response;
+    public void index() {
+        System.out.println("Test Controller Called");
     }
 }
