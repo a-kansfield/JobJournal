@@ -10,7 +10,6 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "applications")
 public class Application{
 
