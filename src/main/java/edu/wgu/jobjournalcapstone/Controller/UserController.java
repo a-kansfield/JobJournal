@@ -3,7 +3,7 @@ package edu.wgu.jobjournalcapstone.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
 

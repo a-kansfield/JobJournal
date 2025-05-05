@@ -12,7 +12,8 @@ export class UserDataService {
   ) { }
 
   retrieveAllUsers() {
-    return this.http.get<User[]>(`http://localhost:8080/`)
+    //return this.http.get<User[]>(`http://localhost:8080/`)
+    return this.http.get<User[]>(`https://job-journal-206c28e002ca.herokuapp.com/`)
   }
 
 }
