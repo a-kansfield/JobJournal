@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@RequiredArgsConstructor
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor

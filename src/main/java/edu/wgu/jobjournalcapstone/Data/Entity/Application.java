@@ -6,7 +6,6 @@ import lombok.*;
 import java.time.Instant;
 import java.util.Date;
 
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
