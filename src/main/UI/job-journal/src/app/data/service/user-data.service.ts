@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user/user'
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataService {
 
+  private springDomain!: string;
   constructor(
     private http : HttpClient
-  ) { }
+  ) {
+    this.springDomain = environment.springDomain
+   }
 
   retrieveAllUsers() {
     //return this.http.get<User[]>(`http://localhost:8080/`)
-    return this.http.get<User[]>(`https://job-journal-206c28e002ca.herokuapp.com/`)
+    console.log(this.springDomain);
+    return this.http.get<User[]>(this.springDomain);
   }
 
 }

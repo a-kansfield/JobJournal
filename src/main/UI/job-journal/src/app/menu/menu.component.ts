@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from '../data/model/user/user';
 import { NgFor, NgIf } from '@angular/common';
 
+
 @Component({
   selector: 'app-menu',
   imports: [NgFor, NgIf],
