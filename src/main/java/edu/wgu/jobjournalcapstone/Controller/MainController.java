@@ -12,18 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {
+        "http://localhost:4200",
+        "https://a-kansfield.github.io/job-journal/"
+})
 public class MainController {
 
-    @Autowired
-    private UserDAO userDAO;
-
-    @GetMapping("/")
-    public List<User> getUsers() {
-
-
-        List<User> users = userDAO.findAll();
-
-        return users;
-    }
+//    @Autowired
+//    private UserDAO userDAO;
+//
+//    @GetMapping("/")
+//    public List<User> getUsers() {
+//
+//
+//        List<User> users = userDAO.findAll();
+//
+//        return users;
+//    }
 }

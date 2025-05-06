@@ -1,5 +1,7 @@
 package edu.wgu.jobjournalcapstone.Data.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,6 +11,10 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator= ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Table(name = "applications")
 public class Application{
 
@@ -36,7 +42,7 @@ public class Application{
     @Temporal(TemporalType.DATE)
     private Date dateApplied;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
