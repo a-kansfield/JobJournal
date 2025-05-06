@@ -1,5 +1,6 @@
 package edu.wgu.jobjournalcapstone.Data.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -11,10 +12,10 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(
-        generator= ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
+//@JsonIdentityInfo(
+//        generator= ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id"
+//)
 @Table(name = "applications")
 public class Application{
 
@@ -22,10 +23,11 @@ public class Application{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="date_created", columnDefinition="TIMESTAMP")
+    // Date Created and Date Updated are entirely automated and only serve to keep a record of when a user creates and updates an application
+    @Column(name="date_created", columnDefinition="TIMESTAMP", nullable = false)
     private Instant dateCreated;
 
-    @Column(name="date_updated", columnDefinition="TIMESTAMP")
+    @Column(name="date_updated", columnDefinition="TIMESTAMP", nullable = false)
     private Instant dateUpdated;
 
     @Column(name="job_title", nullable = false)
@@ -34,13 +36,20 @@ public class Application{
     @Column(name="employer", nullable = false)
     private String employer;
 
+    //Date the Employer posted the job listing
     @Column(name="date_posted")
     @Temporal(TemporalType.DATE)
     private Date datePosted;
 
+    // Date the User applied for the position if applicable
     @Column(name="date_applied")
     @Temporal(TemporalType.DATE)
     private Date dateApplied;
+
+    // Date the application is due if applicable
+    @Column(name="date_due")
+    @Temporal(TemporalType.DATE)
+    private Date dateDue;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -57,6 +66,14 @@ public class Application{
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getDateDue() {
+        return dateDue;
+    }
+
+    public void setDateDue(Date dateDue) {
+        this.dateDue = dateDue;
     }
 
     public Instant getDateCreated() {

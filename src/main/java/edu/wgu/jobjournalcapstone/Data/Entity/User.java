@@ -1,9 +1,6 @@
 package edu.wgu.jobjournalcapstone.Data.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,10 +11,6 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(
-        generator= ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
 @Table(name = "users")
 public class User {
 
@@ -39,6 +32,7 @@ public class User {
     private String password;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Application> applications = new ArrayList<>();
 

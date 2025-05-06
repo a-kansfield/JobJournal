@@ -1,5 +1,8 @@
 package edu.wgu.jobjournalcapstone.Data.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +15,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Table(name = "statuses")
 public class Status {
 
@@ -22,6 +26,7 @@ public class Status {
     @Column(name = "status", updatable = false)
     private String status;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
     private List<Application> applications = new ArrayList<>();
 
