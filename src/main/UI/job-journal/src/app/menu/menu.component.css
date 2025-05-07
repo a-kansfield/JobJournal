@@ -1,0 +1,8 @@
+.glassDiv {
+    
+    background-color:rgba(23, 24, 29, 0.829);
+    border-radius: 0em 0em 0.3em 0.3em;
+    box-shadow: 0em 0.3em 0.5em rgb(24, 23, 24);
+    backdrop-filter: blur(10px);
+
+}
