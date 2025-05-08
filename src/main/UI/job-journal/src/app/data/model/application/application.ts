@@ -1,3 +1,4 @@
+import { Status } from "../status/status";
 import { User } from "../user/user";
 
 export class Application {
@@ -14,7 +15,7 @@ export class Application {
         public datePosted: string,
         public dateApplied: string,
         public dateDue: string,
-        public status: string,
+        public status: Status,
         public user : User
     ) {}
     

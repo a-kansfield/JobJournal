@@ -25,6 +25,11 @@ export class ApplicationDataService {
   }
 
   retrieveBySearch(userID : number, query : string){
-    return this.http.get<Application[]>(`${this.springDomain}${this.endpoint}/user-${userID}/search?query=${query}`);
+    let requestURL = `${this.springDomain}${this.endpoint}/user-${userID}/search?query=${query}`
+    console.log(userID);
+    console.log(requestURL);
+    
+    return this.http.get<Application[]>(requestURL);
+
   }
 }
