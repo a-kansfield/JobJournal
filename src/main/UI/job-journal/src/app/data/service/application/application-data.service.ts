@@ -11,9 +11,12 @@ export class ApplicationDataService {
   private springDomain! : string;
   constructor(
     private http : HttpClient
-  ) { }
+  ) { 
+    this.springDomain = environment.springDomain;
+  }
 
   retrieveByUserId(id : number) {
+    console.log(this.springDomain);
     return this.http.get<Application[]>(`${this.springDomain}${this.endpoint}/all/user-${id}`);
   }
 
