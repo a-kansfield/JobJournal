@@ -16,7 +16,6 @@ export class ApplicationDataService {
   }
 
   retrieveByUserId(id : number) {
-    console.log(this.springDomain);
     return this.http.get<Application[]>(`${this.springDomain}${this.endpoint}/all/user-${id}`);
   }
 
@@ -26,10 +25,15 @@ export class ApplicationDataService {
 
   retrieveBySearch(userID : number, query : string){
     let requestURL = `${this.springDomain}${this.endpoint}/user-${userID}/search?query=${query}`
-    console.log(userID);
-    console.log(requestURL);
     
     return this.http.get<Application[]>(requestURL);
 
   }
+
+
+
+  createApplication(userID : number, application : Application) {
+    return this.http.post<Application>(`${this.springDomain}${this.endpoint}/user-${userID}/application-new`, application);
+  }
+
 }

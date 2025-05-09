@@ -24,7 +24,7 @@ export class ApplicationsComponent {
         console.log(response);
         this.applications = response;
       }
-    )
+    );
   }
 
   // refreshApplications(){
@@ -35,7 +35,7 @@ export class ApplicationsComponent {
   //     }
   // }
 
-  
+
   searchApplications(){
     this.applicationService.retrieveBySearch(1, this.query).subscribe(
       response => {

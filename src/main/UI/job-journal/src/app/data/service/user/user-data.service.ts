@@ -17,7 +17,6 @@ export class UserDataService {
 
   retrieveAllUsers() {
     //return this.http.get<User[]>(`http://localhost:8080/`)
-    console.log(this.springDomain);
     return this.http.get<User[]>(`${this.springDomain}${this.endpoint}/all`);
   }
 

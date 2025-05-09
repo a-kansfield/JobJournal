@@ -7,8 +7,11 @@ import edu.wgu.jobjournalcapstone.Data.Entity.Application;
 import edu.wgu.jobjournalcapstone.Data.Entity.Status;
 import edu.wgu.jobjournalcapstone.Data.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -58,4 +61,29 @@ public class ApplicationController {
 
         return applications;
     }
+
+    @GetMapping("/application-{appID}")
+    public Application getApplicationByID(@PathVariable long userID, @PathVariable long appID) {
+        Application application = applicationDAO.findById(appID).get();
+        return application;
+    }
+    @PostMapping("/user-{userID}/application-new")
+    public ResponseEntity<Void> newApplication(
+            @PathVariable long userID,
+            @RequestBody Application application){
+
+        Application savedApp = applicationDAO.save(application);
+
+        //Generate response entitiy
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path("/{id}")
+                .buildAndExpand(savedApp)
+                .toUri();
+
+        return ResponseEntity.created(uri).build();
+    }
+
+
+
+
 }

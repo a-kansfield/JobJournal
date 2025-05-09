@@ -24,7 +24,9 @@ export class MenuComponent{
     private viewContainer : ViewContainerRef
   ) {}
 
-
+// addApplication() {
+//   this.router.navigate(['application/new', -1]);
+// }
 toggleView(toggle : boolean, component : any) {
   
   if (toggle) {
@@ -41,9 +43,5 @@ if (component === this.loginComponent) {
   
   
 }
-
-
-
-
 }
 
