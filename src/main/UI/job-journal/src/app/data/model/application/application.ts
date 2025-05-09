@@ -12,11 +12,11 @@ export class Application {
         public dateUpdated: Date,
         public jobTitle: string,
         public employer: string,
-        public datePosted: string,
-        public dateApplied: string,
-        public dateDue: string,
+        public datePosted: Date | null,
+        public dateApplied: Date | null,
+        public dateDue: Date | null,
         public status: Status,
-        public user : User
+        public userID : number
     ) {}
     
     
