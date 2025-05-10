@@ -36,4 +36,7 @@ export class ApplicationDataService {
     return this.http.post<Application>(`${this.springDomain}${this.endpoint}/user-${userID}/application-new`, application);
   }
 
+  deleteApplication(userID : number, appID : number) {
+        return this.http.delete<Application>(`${this.springDomain}${this.endpoint}/user-${userID}/application-${appID}`);
+  }
 }

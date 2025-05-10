@@ -83,13 +83,23 @@ public class ParserService{
 
         return application;
     }
+    // Don't need any of this because I already have the ID in the delete request fdgdfsgjfdislgjladfk
+    public Application deleteApplication(Map<String, Object> jsonPayload){
+        Application application = findExisting(jsonPayload);
+        applicationDAO.delete(application);
+
+        return application;
+    }
+
+    private Application findExisting(Map<String, Object> jsonPayload){
+        Long id = Long.parseLong(jsonPayload.get("id").toString());
+        return applicationDAO.findById(id).get();
+    }
 
 
     public Status extractStatus(String status){
 
-
         Long id = Long.parseLong(status);
-
         return statusDAO.findById(id).get();
     }
 

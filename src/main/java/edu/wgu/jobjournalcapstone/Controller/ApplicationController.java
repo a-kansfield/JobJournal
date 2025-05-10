@@ -7,6 +7,7 @@ import edu.wgu.jobjournalcapstone.Data.Entity.Application;
 import edu.wgu.jobjournalcapstone.Data.Entity.Status;
 import edu.wgu.jobjournalcapstone.Data.Entity.User;
 import edu.wgu.jobjournalcapstone.Service.ParserService;
+import edu.wgu.jobjournalcapstone.Service.URIBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,8 @@ public class ApplicationController {
     @Autowired
     private ParserService parserService;
 
+    @Autowired
+    private URIBuilderService uriBuilderService;
 
 //    @GetMapping("/all")
 //    public List<Application> getAllApplications() {
@@ -78,22 +81,25 @@ public class ApplicationController {
     public ResponseEntity<Void> newApplication(
             @PathVariable long userID,
             @RequestBody Map<String, Object> payload){
-            System.out.println(payload);
-            Application application = parserService.parseApplication(payload);
 
 
-//        Application savedApp = applicationDAO.save(application);
-//        System.out.println(savedApp);
-        //Generate response entitiy
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .path("/{id}")
-                .buildAndExpand(application)
-                .toUri();
+        Application application = parserService.parseApplication(payload);
+        URI uri = uriBuilderService.buildURI(application);
 
         return ResponseEntity.created(uri).build();
     }
 
+    @DeleteMapping("/user-{userID}/application-{applicationID}")
+    public ResponseEntity<Void> deleteApplication(
+            @PathVariable long userID,
+            @PathVariable long applicationID) {
 
+        Application application = applicationDAO.findById(applicationID).get();
+        applicationDAO.delete(applicationID);
+        URI uri = uriBuilderService.buildURI(application);
 
+        return ResponseEntity.created(uri).build();
+    }
 
 }
+
