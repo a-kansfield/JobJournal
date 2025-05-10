@@ -1,0 +1,43 @@
+.boxContent{
+    padding: 3rem;
+    padding-top: 1.5rem;
+}
+
+.btn {
+    margin-top: 1rem;
+    padding: 1rem;
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+    border-radius: 5rem;
+}
+
+label{
+    margin-left: .8rem;
+}
+input, select{
+    border-radius: 5rem;
+    color:aliceblue;
+}
+
+
+.form-control::placeholder{
+    color:rgb(180, 196, 184);
+}
+
+.form-control:focus{
+    color: rgb(180, 196, 184);
+    font-size: 1em;
+  }
+
+  .form-check-label {
+    padding-top: 0;
+  }
+
+  .datePicker{
+    color-scheme: dark;
+    padding: .5rem;
+  }
+
+  select, option {
+    text-transform: capitalize;
+  }

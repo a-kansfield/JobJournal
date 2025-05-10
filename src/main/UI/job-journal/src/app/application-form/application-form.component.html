@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div id="applicationsWrapper" class="centerFlex m-5">
+        <div class="glassDiv centerFlex" id="outerDiv">
+            <div class="glassBorder " id="innerDiv">
+                <h1>New Application</h1>
+                <div class="boxContent">
+                    <form (ngSubmit)="saveApplication()">
+                        <fieldset class="d-none">
+                            <div class="mb-3">
+                                <label for="appId" class="form-label">Id</label>
+                                <input type="text" class="form-control" id="appId">
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="mb-3">
+                                <label for="jobTitle" class="form-label">Job Title</label>
+                                <input type="text" class="form-control" name="jobTitle" [(ngModel)]="application.jobTitle" id="jobTitle">
+                            </div>
+                        </fieldset>
+                        
+                        <fieldset>
+                            <div class="mb-3">
+                                <label for="employer" class="form-label">Employer</label>
+                                <input type="text" class="form-control" name="employer" [(ngModel)]="application.employer" id="employer">
+                            </div>
+                        </fieldset>
+    
+                        <fieldset>
+                            <div class="form-check">
+                            <input class="form-check-input" type="checkbox" (change)="printApplicationType($event)" value="true" id="checkDefault">
+                            <label class="form-check-label" for="checkDefault">
+                              Application Sent
+                            </label>
+                          </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <label for="datePosted" class="form-label">Date Posted</label>
+                            <input class="form-control datePicker" max="{{ this.tempDate | date:'yyyy-MM-dd'}}" id="datePosted" type="date" name="datePosted" [(ngModel)]="application.datePosted">
+                        </fieldset>
+
+                        <fieldset *ngIf="applicationSent">
+                            <label for="dateApplied" class="form-label">Date Applied</label>
+                            <input class=" form-control datePicker" id="dateApplied"
+                            name="dateApplied" max="{{ this.tempDate | date:'yyyy-MM-dd'}}" min={{application.datePosted}} [(ngModel)]="application.dateApplied" type="date">
+                        </fieldset>
+
+                        <fieldset *ngIf="!applicationSent">
+                            <label for="dateDue" class="form-label">Date Due</label>
+                            <input class=" form-control datePicker" id="dateDue" type="date" min="{{ this.tempDate | date:'yyyy-MM-dd'}}" name="dateDue" [(ngModel)]="application.dateDue">
+                        </fieldset>
+
+                        <fieldset>
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" [(ngModel)]="application.status" name="status">
+                                <<ng-container *ngFor="let status of statuses">
+                                    <option [selected]="status.id === application.status.id" value="{{status.id}}">{{status.status.toLocaleLowerCase()}}</option>
+                                </ng-container>
+                                
+                            </select>
+  
+  
+                        </fieldset>
+                        <div class="d-flex flex-row-reverse">
+                            <button type="submit" class="btn btn-outline-success lexend-giga-semibold">Submit</button>
+                        </div>
+    
+                    </form>
+  
+            </div>
+        </div>
+    </div>
+</div>

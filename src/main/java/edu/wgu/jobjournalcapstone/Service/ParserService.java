@@ -27,6 +27,7 @@ public class ParserService{
     ApplicationDAO applicationDAO;
     private InstantConversionService instConversionService = new InstantConversionService();
     private DateConversionService dateConversionService = new DateConversionService();
+    private ValidatorService validatorService = new ValidatorService();
 
     public Application parseApplication(@NotNull Map<String, Object> jsonPayload){
         Application application;
@@ -87,7 +88,12 @@ public class ParserService{
         User user = userDAO.findById(userID).get();
 
         application.setUser(user);
-        applicationDAO.save(application);
+
+
+        // DATE VALIDATION
+        if (validatorService.isDateValid(application)){
+            applicationDAO.save(application);
+        }
 
         return application;
     }
