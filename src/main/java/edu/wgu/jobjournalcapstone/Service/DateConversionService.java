@@ -11,9 +11,16 @@ public class DateConversionService extends ConversionService{
 
     private ZoneId zone = ZoneId.systemDefault();
 
-    public LocalDate stringToLocalDate(String dateString) {
+    // Used if a timestamp needs to be converted to LocalDate
+    public LocalDate zonedStringToLocalDate(String dateString) {
         Instant inst = stringToInstant(dateString);
         LocalDate date = LocalDate.ofInstant(inst, zone);
+        return date;
+    }
+
+    // Simple conversion from string to localdate
+    public LocalDate stringToLocalDate(String dateString){
+        LocalDate date = LocalDate.parse(dateString);
         return date;
     }
 }

@@ -9,6 +9,7 @@ import edu.wgu.jobjournalcapstone.Data.Entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -71,7 +72,7 @@ public class ParserService{
         application.setJobTitle(jsonPayload.get("jobTitle").toString());
 
 
-        Status status = extractStatus(jsonPayload.get("status"));
+        Status status = extractStatus(jsonPayload.get("status").toString());
         application.setStatus(status);
 
         Long userID = Long.parseLong(jsonPayload.get("userID").toString());
@@ -84,10 +85,10 @@ public class ParserService{
     }
 
 
-    public Status extractStatus(Object statusObj){
+    public Status extractStatus(String status){
 
-        Map<String, Object> statusMap = (Map<String, Object>) statusObj;
-        Long id = Long.parseLong(statusMap.get("id").toString());
+
+        Long id = Long.parseLong(status);
 
         return statusDAO.findById(id).get();
     }
