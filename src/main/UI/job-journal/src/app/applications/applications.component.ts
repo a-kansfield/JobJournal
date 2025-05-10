@@ -31,6 +31,7 @@ export class ApplicationsComponent {
         console.log(response);
         this.applications = response;
       }
+    );
   }
 
 
@@ -42,7 +43,7 @@ export class ApplicationsComponent {
         
         this.applications = response;
       }
-    )
+    );
   }
 
   deleteApplication(appID : number) {

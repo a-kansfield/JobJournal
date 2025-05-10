@@ -14,6 +14,10 @@ export class ApplicationDataService {
   ) { 
     this.springDomain = environment.springDomain;
   }
+  
+  retrieveById(appID : number) {
+    return this.http.get<Application>(`${this.springDomain}${this.endpoint}/application-${appID}`)
+  }
 
   retrieveByUserId(id : number) {
     return this.http.get<Application[]>(`${this.springDomain}${this.endpoint}/all/user-${id}`);
@@ -38,5 +42,9 @@ export class ApplicationDataService {
 
   deleteApplication(userID : number, appID : number) {
         return this.http.delete<Application>(`${this.springDomain}${this.endpoint}/user-${userID}/application-${appID}`);
+  }
+
+  updateApplication(userID : number, appID : number, application : Application) {
+    return this.http.put<Application>(`${this.springDomain}${this.endpoint}/user-${userID}/application-${appID}`, application);
   }
 }

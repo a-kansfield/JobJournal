@@ -73,7 +73,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/application-{appID}")
-    public Application getApplicationByID(@PathVariable long userID, @PathVariable long appID) {
+    public Application getApplicationByID(@PathVariable long appID) {
         Application application = applicationDAO.findById(appID).get();
         return application;
     }
@@ -83,6 +83,18 @@ public class ApplicationController {
             @RequestBody Map<String, Object> payload){
 
 
+        Application application = parserService.parseApplication(payload);
+        URI uri = uriBuilderService.buildURI(application);
+
+        return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/user-{userID}/application-{applicationID}")
+    public ResponseEntity<Void> updateApplication(
+            @PathVariable long userID,
+            @PathVariable long applicationID,
+            @RequestBody Map<String, Object> payload
+    ) {
         Application application = parserService.parseApplication(payload);
         URI uri = uriBuilderService.buildURI(application);
 

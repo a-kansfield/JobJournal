@@ -6,6 +6,7 @@ import edu.wgu.jobjournalcapstone.Data.DAO.UserDAO;
 import edu.wgu.jobjournalcapstone.Data.Entity.Application;
 import edu.wgu.jobjournalcapstone.Data.Entity.Status;
 import edu.wgu.jobjournalcapstone.Data.Entity.User;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,15 @@ public class ParserService{
     private InstantConversionService instConversionService = new InstantConversionService();
     private DateConversionService dateConversionService = new DateConversionService();
 
-    public Application parseApplication(Map<String, Object> jsonPayload){
-        Application application = new Application();
+    public Application parseApplication(@NotNull Map<String, Object> jsonPayload){
+        Application application;
+        Long id = Long.parseLong(jsonPayload.get("id").toString());
+        if (id != -1) {
+            application = findExisting(jsonPayload);
+        } else {
+            application = new Application();
+        }
+
         String tempStringDate;
         DateTimeFormatter isoFormat = DateTimeFormatter.ISO_INSTANT;
 
