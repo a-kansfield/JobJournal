@@ -132,6 +132,7 @@ background-image:url(../public/img/bg.png);
 
   a {
     text-decoration: none;
+    cursor:pointer;
   }
   input, select {
     background-color: rgba(20, 19, 19, 0.658) !important;

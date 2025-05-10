@@ -1,5 +1,6 @@
 package edu.wgu.jobjournalcapstone.Controller;
 
+import com.opencsv.CSVWriter;
 import edu.wgu.jobjournalcapstone.Data.DAO.ApplicationDAO;
 import edu.wgu.jobjournalcapstone.Data.DAO.StatusDAO;
 import edu.wgu.jobjournalcapstone.Data.DAO.UserDAO;
@@ -8,6 +9,8 @@ import edu.wgu.jobjournalcapstone.Data.Entity.Status;
 import edu.wgu.jobjournalcapstone.Data.Entity.User;
 import edu.wgu.jobjournalcapstone.Service.ParserService;
 import edu.wgu.jobjournalcapstone.Service.URIBuilderService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
 
@@ -113,5 +117,39 @@ public class ApplicationController {
         return ResponseEntity.created(uri).build();
     }
 
+    @RequestMapping(value = "/user-{userID}/download-applications",
+            method = RequestMethod.GET, produces="text/csv")
+    @ResponseBody()
+    public String downloadApplications(
+            @PathVariable Long userID
+    ){
+        User user = userDAO.findById(userID).get();
+        List<Application> applications = applicationDAO.getApplicationsByUser(user);
+
+
+        StringBuilder sb = new StringBuilder();
+        String format = "\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n";
+        sb.append("Job Title,Employer,Date Applied,Date Posted,Date Due,Status,Date Updated,\n,\n");
+        for (Application application : applications) {
+
+
+            String appRow = String.format(format,
+                    application.getJobTitle(),
+                    application.getEmployer(),
+                    application.getDateApplied(),
+                    application.getDatePosted(),
+                    application.getDateDue(),
+                    application.getStatus().getStatus(),
+                    application.getDateUpdated()
+                    );
+            sb.append(appRow);
+        }
+
+        //String str = "Download File Test";
+
+        System.out.println(sb);
+        return sb.toString();
+    }
 }
+
 

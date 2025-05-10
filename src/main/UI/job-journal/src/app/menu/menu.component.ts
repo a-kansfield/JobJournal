@@ -4,6 +4,7 @@ import { UserDataService } from '../data/service/user/user-data.service';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../data/model/user/user';
 import { NgFor, NgIf } from '@angular/common';
+import { ApplicationDataService } from '../data/service/application/application-data.service';
 
 
 @Component({
@@ -18,8 +19,10 @@ export class MenuComponent{
 
   user? : User;
   loginVisible : boolean = false;
+  userID : number = 1;
   constructor(
     private userService : UserDataService,
+    private applicationService : ApplicationDataService,
     private router : Router,
     private viewContainer : ViewContainerRef
   ) {}
@@ -27,21 +30,49 @@ export class MenuComponent{
 // addApplication() {
 //   this.router.navigate(['application/new', -1]);
 // }
-toggleView(toggle : boolean, component : any) {
-  
-  if (toggle) {
-    this.viewContainer.clear();
-  } else {
-    this.viewContainer.createComponent(component);
+  toggleView(toggle : boolean, component : any) {
+    
+    if (toggle) {
+      this.viewContainer.clear();
+    } else {
+      this.viewContainer.createComponent(component);
+    }
+
+    if (component === this.loginComponent) {
+      toggle = !toggle;
+      this.loginVisible = toggle;
+    }
   }
 
-if (component === this.loginComponent) {
-  toggle = !toggle;
-  this.loginVisible = toggle;
-}
+  downloadFile() {
+    this.applicationService.downloadFile(this.userID).subscribe(
+      response => {
+        let fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
 
-  
-  
-}
+        let blob: Blob = response.body as Blob;
+        // let csvData : Blob = this.csvMaker(blob);
+        const url = URL.createObjectURL(blob);
+
+        let ele = document.createElement('a');
+
+        ele.href = url;
+        ele.download = 'Applications.csv';
+
+        
+        ele.click();
+        console.log(response);
+      }
+    )
+  }
+
+  csvMaker(data : Object){
+      const headers = Object.keys(data);
+      const values = Object.values(data);
+
+      return [headers.join(','), values.join(',')].join('\n');
+
+  }
+
+
 }
 

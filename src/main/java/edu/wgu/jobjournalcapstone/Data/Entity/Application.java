@@ -3,6 +3,8 @@ package edu.wgu.jobjournalcapstone.Data.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.opencsv.bean.CsvBindByPosition;
+import com.opencsv.bean.CsvIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,37 +24,45 @@ import java.util.Date;
 public class Application{
 
     @Id
+    @CsvIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     // Date Created and Date Updated are entirely automated and only serve to keep a record of when a user creates and updates an application
+    @CsvBindByPosition(position = 0)
     @Column(name="date_created", columnDefinition="TIMESTAMP", nullable = false)
     private Instant dateCreated;
-
+    @CsvBindByPosition(position = 1)
     @Column(name="date_updated", columnDefinition="TIMESTAMP", nullable = false)
     private Instant dateUpdated;
 
+    @CsvBindByPosition(position = 2)
     @Column(name="job_title", nullable = false)
     private String jobTitle;
 
+    @CsvBindByPosition(position = 3)
     @Column(name="employer", nullable = false)
     private String employer;
 
     //Date the Employer posted the job listing
+    @CsvBindByPosition(position = 4)
     @Column(name="date_posted")
     @Temporal(TemporalType.DATE)
     private LocalDate datePosted;
 
     // Date the User applied for the position if applicable
+    @CsvBindByPosition(position = 5)
     @Column(name="date_applied")
     @Temporal(TemporalType.DATE)
     private LocalDate dateApplied;
 
     // Date the application is due if applicable
+    @CsvBindByPosition(position = 6)
     @Column(name="date_due")
     @Temporal(TemporalType.DATE)
     private LocalDate dateDue;
 
+    @CsvIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -60,6 +70,7 @@ public class Application{
     //private Status status;
     @ManyToOne
     @JoinColumn(name = "status_id")
+    @CsvBindByPosition(position = 0)
     private Status status;
 
     public Integer getId() {

@@ -47,4 +47,8 @@ export class ApplicationDataService {
   updateApplication(userID : number, appID : number, application : Application) {
     return this.http.put<Application>(`${this.springDomain}${this.endpoint}/user-${userID}/application-${appID}`, application);
   }
+
+  downloadFile(userID: number) {
+    return this.http.get(`${this.springDomain}${this.endpoint}/user-${userID}/download-applications`, {observe:'response', responseType: 'blob'});
+  }
 }
