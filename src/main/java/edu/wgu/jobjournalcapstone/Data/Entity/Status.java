@@ -21,7 +21,7 @@ public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "status", updatable = false)
     private String status;
@@ -30,11 +30,11 @@ public class Status {
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
     private List<Application> applications = new ArrayList<>();
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

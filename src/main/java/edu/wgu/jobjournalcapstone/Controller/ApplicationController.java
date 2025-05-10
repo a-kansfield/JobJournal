@@ -6,13 +6,16 @@ import edu.wgu.jobjournalcapstone.Data.DAO.UserDAO;
 import edu.wgu.jobjournalcapstone.Data.Entity.Application;
 import edu.wgu.jobjournalcapstone.Data.Entity.Status;
 import edu.wgu.jobjournalcapstone.Data.Entity.User;
+import edu.wgu.jobjournalcapstone.Service.ParserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = {
@@ -28,6 +31,10 @@ public class ApplicationController {
     private UserDAO userDAO;
     @Autowired
     private StatusDAO statusDAO;
+
+    @Autowired
+    private ParserService parserService;
+
 
 //    @GetMapping("/all")
 //    public List<Application> getAllApplications() {
@@ -70,14 +77,17 @@ public class ApplicationController {
     @PostMapping("/user-{userID}/application-new")
     public ResponseEntity<Void> newApplication(
             @PathVariable long userID,
-            @RequestBody Application application){
+            @RequestBody Map<String, Object> payload){
+            System.out.println(payload);
+            Application application = parserService.parseApplication(payload);
 
-        Application savedApp = applicationDAO.save(application);
 
+//        Application savedApp = applicationDAO.save(application);
+//        System.out.println(savedApp);
         //Generate response entitiy
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
-                .buildAndExpand(savedApp)
+                .buildAndExpand(application)
                 .toUri();
 
         return ResponseEntity.created(uri).build();

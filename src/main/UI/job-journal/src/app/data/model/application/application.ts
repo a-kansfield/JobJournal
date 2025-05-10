@@ -16,7 +16,8 @@ export class Application {
         public dateApplied: Date | null,
         public dateDue: Date | null,
         public status: Status,
-        public userID : number
+        public userID : number,
+        
     ) {}
     
     

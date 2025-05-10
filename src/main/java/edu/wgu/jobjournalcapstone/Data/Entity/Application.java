@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -39,17 +41,17 @@ public class Application{
     //Date the Employer posted the job listing
     @Column(name="date_posted")
     @Temporal(TemporalType.DATE)
-    private Date datePosted;
+    private LocalDate datePosted;
 
     // Date the User applied for the position if applicable
     @Column(name="date_applied")
     @Temporal(TemporalType.DATE)
-    private Date dateApplied;
+    private LocalDate dateApplied;
 
     // Date the application is due if applicable
     @Column(name="date_due")
     @Temporal(TemporalType.DATE)
-    private Date dateDue;
+    private LocalDate dateDue;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -68,11 +70,11 @@ public class Application{
         this.id = id;
     }
 
-    public Date getDateDue() {
+    public LocalDate getDateDue() {
         return dateDue;
     }
 
-    public void setDateDue(Date dateDue) {
+    public void setDateDue(LocalDate dateDue) {
         this.dateDue = dateDue;
     }
 
@@ -108,19 +110,19 @@ public class Application{
         this.employer = employer;
     }
 
-    public Date getDatePosted() {
+    public LocalDate getDatePosted() {
         return datePosted;
     }
 
-    public void setDatePosted(Date datePosted) {
+    public void setDatePosted(LocalDate datePosted) {
         this.datePosted = datePosted;
     }
 
-    public Date getDateApplied() {
+    public LocalDate getDateApplied() {
         return dateApplied;
     }
 
-    public void setDateApplied(Date dateApplied) {
+    public void setDateApplied(LocalDate dateApplied) {
         this.dateApplied = dateApplied;
     }
 
