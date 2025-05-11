@@ -1,0 +1,38 @@
+.popup {
+}
+
+#ViewWrapper{
+    z-index: 5;
+    margin-top: .5rem;
+    
+}
+.boxContent{
+    padding: 3rem;
+    padding-top: 1.5rem;
+}
+
+.btn {
+    margin-top: 1rem;
+    padding: 1rem;
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+    border-radius: 5rem;
+}
+
+label{
+    margin-left: .8rem;
+}
+input{
+    border-radius: 5rem;
+    color:aliceblue;
+}
+
+
+.form-control::placeholder{
+    color:rgb(180, 196, 184);
+}
+
+.form-control:focus{
+    color: rgb(180, 196, 184);
+    font-size: 1em;
+  }

@@ -13,7 +13,7 @@
                         <button class="btn btn-outline-success searchBtn lexend-giga-thin" (click)=searchApplications()>Search</button>
 
                         <!-- Add -->
-                        <a routerLink="../application/edit/-1" style="position: relative; left: 9rem;">
+                        <a routerLink="../{{userID}}/application/edit/-1" style="position: relative; left: 9rem;">
                             <svg viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffff" stroke="#ffffff" height="50"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>plus-circle</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-464.000000, -1087.000000)" fill="#f5f5f5"> <path d="M480,1117 C472.268,1117 466,1110.73 466,1103 C466,1095.27 472.268,1089 480,1089 C487.732,1089 494,1095.27 494,1103 C494,1110.73 487.732,1117 480,1117 L480,1117 Z M480,1087 C471.163,1087 464,1094.16 464,1103 C464,1111.84 471.163,1119 480,1119 C488.837,1119 496,1111.84 496,1103 C496,1094.16 488.837,1087 480,1087 L480,1087 Z M486,1102 L481,1102 L481,1097 C481,1096.45 480.553,1096 480,1096 C479.447,1096 479,1096.45 479,1097 L479,1102 L474,1102 C473.447,1102 473,1102.45 473,1103 C473,1103.55 473.447,1104 474,1104 L479,1104 L479,1109 C479,1109.55 479.447,1110 480,1110 C480.553,1110 481,1109.55 481,1109 L481,1104 L486,1104 C486.553,1104 487,1103.55 487,1103 C487,1102.45 486.553,1102 486,1102 L486,1102 Z" id="plus-circle" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
                         </a>
                       </form>
@@ -27,7 +27,7 @@
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"  attr.data-bs-target="#collapse{{application.id}}">
                                 <div class="accordionTitle">
                                     <h2 class="d-inline-flex textLeft roboto-normal">{{application.jobTitle}}</h2>
-                                    <h2 class="d-inline-flex textRight roboto-thin">Applied: {{application.dateApplied}}</h2>
+                                    <h2 *ngIf="application.dateApplied" class="d-inline-flex textRight roboto-thin">Applied: {{application.dateApplied | date: 'MM/dd/yyyy'}}</h2>
                                 </div>
                             </button>
                           </h2>
@@ -36,7 +36,7 @@
                                 <div class="lineBreak"></div>
                                     <div class="lineContent">
                                         <h2 class="d-inline-flex textLeft roboto-normal">{{application.employer}}</h2>
-                                        <h2 class="d-inline-flex textRight roboto-thin">Posted: {{application.datePosted}}</h2>
+                                        <h2 class="d-inline-flex textRight roboto-thin">Posted: {{application.datePosted | date: 'MM/dd/yyyy'}}</h2>
                                     </div>
                                     <div>
                                         <h2 class="statusText">{{application.status.status}}</h2>
@@ -46,8 +46,8 @@
                                             <svg viewBox="0 0 24 24" fill="none" height="35" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 6V16.2C18 17.8802 18 18.7202 17.673 19.362C17.3854 19.9265 16.9265 20.3854 16.362 20.673C15.7202 21 14.8802 21 13.2 21H10.8C9.11984 21 8.27976 21 7.63803 20.673C7.07354 20.3854 6.6146 19.9265 6.32698 19.362C6 18.7202 6 17.8802 6 16.2V6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6" stroke="#e6e6e6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ></path> </g></svg>
                                         </a>
                                         <div class="d-flex">
-                                            <p class="dateUpdated">Last Update: {{application.dateUpdated}}</p>
-                                            <a routerLink="../application/edit/{{application.id}}">
+                                            <p class="dateUpdated">Last Update: {{application.dateUpdated | date: 'MM/dd/yyyy hh:mm a'}}</p>
+                                            <a routerLink="../{{userID}}/application/edit/{{application.id}}">
                                                 <svg viewBox="0 0 24 24" fill="none" height="35"  xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.2799 6.40005L11.7399 15.94C10.7899 16.89 7.96987 17.33 7.33987 16.7C6.70987 16.07 7.13987 13.25 8.08987 12.3L17.6399 2.75002C17.8754 2.49308 18.1605 2.28654 18.4781 2.14284C18.7956 1.99914 19.139 1.92124 19.4875 1.9139C19.8359 1.90657 20.1823 1.96991 20.5056 2.10012C20.8289 2.23033 21.1225 2.42473 21.3686 2.67153C21.6147 2.91833 21.8083 3.21243 21.9376 3.53609C22.0669 3.85976 22.1294 4.20626 22.1211 4.55471C22.1128 4.90316 22.0339 5.24635 21.8894 5.5635C21.7448 5.88065 21.5375 6.16524 21.2799 6.40005V6.40005Z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M11 4H6C4.93913 4 3.92178 4.42142 3.17163 5.17157C2.42149 5.92172 2 6.93913 2 8V18C2 19.0609 2.42149 20.0783 3.17163 20.8284C3.92178 21.5786 4.93913 22 6 22H17C19.21 22 20 20.2 20 18V13" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                                             </a>
                                         </div>

@@ -21,6 +21,7 @@ export class ApplicationFormComponent implements OnInit, AfterViewInit{
   application! : Application;
   applicationSent: boolean = false;
   id!: number;
+  userID!: number;
   tempDate : Date = new Date(Date.now());
   currentDateString! : string;
 
@@ -38,7 +39,7 @@ export class ApplicationFormComponent implements OnInit, AfterViewInit{
   
   ngOnInit(){
     this.id = this.route.snapshot.params['id'];
-    
+    this.userID = this.route.snapshot.params['userID'];
     this.statusService.retrieveStatusList().subscribe(
       response => {
         console.log(response);
@@ -98,6 +99,8 @@ export class ApplicationFormComponent implements OnInit, AfterViewInit{
   }
 
   saveApplication(){
+    this.application.userID = this.userID;
+    this.application.dateUpdated = new Date(Date.now());
     console.log("Application Sent: " + this.applicationSent)
     if (this.applicationSent === true) {
         this.application.dateDue = null;

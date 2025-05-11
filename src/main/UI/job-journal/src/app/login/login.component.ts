@@ -8,8 +8,7 @@ import { MenuComponent } from '../menu/menu.component';
 })
 export class LoginComponent{
   @ViewChild('outerDiv') outerDiv!: ElementRef;
-  x! : number;
-  y! : number; 
+
 
   constructor(
     private viewContainer : ViewContainerRef

@@ -27,9 +27,6 @@ export class MenuComponent{
     private viewContainer : ViewContainerRef
   ) {}
 
-// addApplication() {
-//   this.router.navigate(['application/new', -1]);
-// }
   toggleView(toggle : boolean, component : any) {
     
     if (toggle) {
@@ -47,10 +44,7 @@ export class MenuComponent{
   downloadFile() {
     this.applicationService.downloadFile(this.userID).subscribe(
       response => {
-        let fileName = response.headers.get('content-disposition')?.split(';')[1].split('=')[1];
-
         let blob: Blob = response.body as Blob;
-        // let csvData : Blob = this.csvMaker(blob);
         const url = URL.createObjectURL(blob);
 
         let ele = document.createElement('a');
@@ -63,14 +57,6 @@ export class MenuComponent{
         console.log(response);
       }
     )
-  }
-
-  csvMaker(data : Object){
-      const headers = Object.keys(data);
-      const values = Object.values(data);
-
-      return [headers.join(','), values.join(',')].join('\n');
-
   }
 
 

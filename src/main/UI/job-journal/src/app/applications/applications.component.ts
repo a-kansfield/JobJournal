@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { ApplicationDataService } from '../data/service/application/application-data.service';
 import { Application } from '../data/model/application/application';
-import { NgFor } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-applications',
-  imports: [RouterModule, RouterLink, NgFor, FormsModule],
+  imports: [RouterModule, RouterLink, NgFor, NgIf, FormsModule, DatePipe],
   templateUrl: './applications.component.html',
   styleUrl: './applications.component.css'
 })
