@@ -117,4 +117,28 @@ public class ParserService{
         return statusDAO.findById(id).get();
     }
 
+
+
+    public User parseUser(@NotNull Map<String, Object> jsonPayload){
+        User user = new User();
+
+        user.setFirstName(
+                jsonPayload.get("firstName").toString()
+        );
+        user.setLastName(
+                jsonPayload.get("lastName").toString()
+        );
+
+        user.setEmail(
+                jsonPayload.get("email").toString()
+        );
+
+        //Plaintext for now
+        user.setPassword(
+                jsonPayload.get("password").toString()
+        );
+
+        userDAO.save(user);
+        return user;
+    }
 }

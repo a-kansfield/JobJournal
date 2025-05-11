@@ -24,4 +24,8 @@ export class UserDataService {
     return this.http.get<User>(`${this.springDomain}${this.endpoint}/user`);
   }
 
+  saveUser(user : User){
+    return this.http.post(`${this.springDomain}${this.endpoint}/new`, user);
+  }
+
 }

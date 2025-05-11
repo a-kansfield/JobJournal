@@ -2,10 +2,15 @@ package edu.wgu.jobjournalcapstone.Controller;
 
 import edu.wgu.jobjournalcapstone.Data.DAO.UserDAO;
 import edu.wgu.jobjournalcapstone.Data.Entity.User;
+import edu.wgu.jobjournalcapstone.Service.ParserService;
+import edu.wgu.jobjournalcapstone.Service.URIBuilderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = {
@@ -17,18 +22,31 @@ public class UserController {
 
     @Autowired
     private UserDAO userDAO;
-//    @GetMapping
-@GetMapping("/all")
-public List<User> getUsers() {
+    @Autowired
+    private URIBuilderService uriBuilderService;
+    @Autowired
+    private ParserService parserService;
 
-    List<User> users = userDAO.findAll();
+    //    @GetMapping
+    @GetMapping("/all")
+    public List<User> getUsers() {
 
-    return users;
-}
+        List<User> users = userDAO.findAll();
+
+        return users;
+    }
 
 
-//    @PostMapping
-//
+    @PostMapping("/new")
+        public ResponseEntity<Void> createUser(
+            @RequestBody Map<String, Object> payload
+            ) {
+
+        User user = parserService.parseUser(payload);
+        URI uri = uriBuilderService.buildURI(user);
+        return ResponseEntity.created(uri).build();
+    }
+
 //    @PutMapping
 //
 //    @DeleteMapping
