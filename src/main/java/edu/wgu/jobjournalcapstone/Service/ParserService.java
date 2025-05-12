@@ -7,16 +7,19 @@ import edu.wgu.jobjournalcapstone.Data.Entity.Application;
 import edu.wgu.jobjournalcapstone.Data.Entity.Status;
 import edu.wgu.jobjournalcapstone.Data.Entity.User;
 import jakarta.validation.constraints.NotNull;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+//import org.springframework.security.crypto.password.PasswordEncoder;
 @Service
 public class ParserService{
 
+//    @Autowired
+//    PasswordEncoder passwordEncoder;
     @Autowired
     StatusDAO statusDAO;
 
@@ -120,6 +123,7 @@ public class ParserService{
 
 
     public User parseUser(@NotNull Map<String, Object> jsonPayload){
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         User user = new User();
 
         user.setFirstName(
@@ -132,11 +136,14 @@ public class ParserService{
         user.setEmail(
                 jsonPayload.get("email").toString()
         );
-
+        //String encryptedPass = passwordEncoder.encode(jsonPayload.get("password").toString());
         //Plaintext for now
+
+        String encryptedPassword = passwordEncryptor.encryptPassword(jsonPayload.get("password").toString());
         user.setPassword(
-                jsonPayload.get("password").toString()
+                encryptedPassword
         );
+
 
         userDAO.save(user);
         return user;

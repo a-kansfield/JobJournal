@@ -19,7 +19,7 @@ export class HttpIntercepterService implements HttpInterceptor{
     let authString = this.authService.getAuthenticatedToken();
     let email = this.authService.getAuthenticatedUser()
 
-    if (authString && email){
+    if (authString){
       request = request.clone({
         setHeaders: {
           Authorization: authString

@@ -5,6 +5,7 @@ import edu.wgu.jobjournalcapstone.Data.DAO.UserDAO;
 import edu.wgu.jobjournalcapstone.Data.Entity.User;
 import edu.wgu.jobjournalcapstone.Service.ParserService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,17 @@ public class AuthController {
     public AuthenticationBean authenticateUser(
             @RequestBody Map<String, Object> payload
     ){
-
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+        String pass = passwordEncryptor.encryptPassword(payload.get("password").toString());
         try {
-            User user = userDAO.findByEmailAndPassword(
-                    payload.get("email").toString(),
-                    payload.get("password").toString()
+            User user = userDAO.findByEmail(
+                    payload.get("email").toString()
             );
-            return new AuthenticationBean(user.getId());
+            if(passwordEncryptor.checkPassword(payload.get("password").toString(), user.getPassword())){
+                return new AuthenticationBean(user.getId());
+            } else{
+                return null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

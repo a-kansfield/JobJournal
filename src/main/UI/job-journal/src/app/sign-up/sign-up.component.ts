@@ -25,10 +25,14 @@ export class SignUpComponent {
   }
 
   saveUser() {
+
+
     this.userService.saveUser(this.user).subscribe(
       response => {
         console.log("User saved");
       }
     )
   }
+
+
 }

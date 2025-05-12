@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../../model/user/user'
 import { environment } from '../../../../environments/environment';
 
@@ -25,7 +25,19 @@ export class UserDataService {
   }
 
   saveUser(user : User){
-    return this.http.post(`${this.springDomain}${this.endpoint}/new`, user);
+    const authString = this.createAuthenticationHeader();
+    const headers = new HttpHeaders({
+      Authorization: authString
+    })
+    return this.http.post(`${this.springDomain}${this.endpoint}/new`, user, {headers});
+  }
+
+  createAuthenticationHeader() {
+      let username = 'user';
+      let password = 'password';
+      let authString = 'Basic ' + window.btoa(username + ":" + password);
+
+      return authString;
   }
 
 }

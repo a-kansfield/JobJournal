@@ -74,6 +74,7 @@ export class AuthService {
   logout() {
     sessionStorage.removeItem('authenticatedUser');
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('id');
   }
   
 }
