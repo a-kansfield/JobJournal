@@ -18,7 +18,7 @@ import { UserDataService } from '../data/service/user/user-data.service';
 export class ApplicationFormComponent implements OnInit, AfterViewInit{
 
   statuses! : Status[];
-  application! : Application;
+  application : Application = new Application();
   applicationSent: boolean = false;
   id!: number;
   userID!: number;
@@ -99,19 +99,21 @@ export class ApplicationFormComponent implements OnInit, AfterViewInit{
   }
 
   saveApplication(){
-    this.application.userID = this.userID;
-    this.application.dateUpdated = new Date(Date.now());
-    console.log("Application Sent: " + this.applicationSent)
-    if (this.applicationSent === true) {
-        this.application.dateDue = null;
-    } else if (this.applicationSent === false){
-        this.application.dateApplied = null;
-    }
-
-    this.applicationService.createApplication(this.application.userID, this.application).subscribe(
-      data => {
-        this.router.navigate(['applications']);
+    if (this.application != undefined) {
+      this.application.userID = this.userID;
+      this.application.dateUpdated = new Date(Date.now());
+      console.log("Application Sent: " + this.applicationSent)
+      if (this.applicationSent === true) {
+          this.application.dateDue = null;
+      } else if (this.applicationSent === false){
+          this.application.dateApplied = null;
       }
-    );
+
+      this.applicationService.createApplication(this.application.userID, this.application).subscribe(
+        data => {
+          this.router.navigate(['applications']);
+        }
+      );
+    }
   }
 }

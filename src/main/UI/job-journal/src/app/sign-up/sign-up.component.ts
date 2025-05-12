@@ -10,6 +10,7 @@ import { UserDataService } from '../data/service/user/user-data.service';
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
+
 export class SignUpComponent {
   user! : User;
 

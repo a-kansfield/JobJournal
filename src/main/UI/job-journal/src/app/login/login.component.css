@@ -37,3 +37,7 @@ input{
     color: rgb(180, 196, 184);
     font-size: 1em;
   }
+
+.alert {
+    color-scheme: dark;
+}

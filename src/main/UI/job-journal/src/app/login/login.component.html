@@ -3,19 +3,19 @@
         <div class="glassDiv centerFlex" id="outerDiv">
             <div class="glassBorder boxContent" id="innerDiv">
                 
-
-                <form>
+                <div class="alert alert-warning" data-bs-theme="dark" role="alert" *ngIf="invalidLogin">{{errorMsg}}</div>
+                <form (ngSubmit)="authLogin()">
                     <fieldset>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" class="form-control" name="email" [(ngModel)]="email" id="email">
                         </div>
                     </fieldset>
                     
                     <fieldset>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password">
+                            <input type="password" name="password" class="form-control" [(ngModel)]="password" id="password">
                         </div>
                     </fieldset>
 

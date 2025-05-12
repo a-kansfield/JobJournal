@@ -2,6 +2,8 @@ import { FormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpIntercepterService } from './service/http/http-intercepter.service';
+
 import {  
   ApplicationConfig, 
   provideZoneChangeDetection, 
@@ -11,8 +13,10 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 
 import { 
+  HTTP_INTERCEPTORS,
   provideHttpClient, 
   withInterceptorsFromDi } from '@angular/common/http';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -20,6 +24,7 @@ export const appConfig: ApplicationConfig = {
       BrowserModule, 
       FormsModule), 
     provideRouter(routes),
-    provideHttpClient(withInterceptorsFromDi())
+     { provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterService, multi: true }, // ADD THIS
+    provideHttpClient(withInterceptorsFromDi()),
   ]
 };

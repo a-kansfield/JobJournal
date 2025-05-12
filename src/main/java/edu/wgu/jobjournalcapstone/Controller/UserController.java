@@ -27,6 +27,12 @@ public class UserController {
     @Autowired
     private ParserService parserService;
 
+    @GetMapping("/user")
+    public User getUser(
+            @RequestBody User user
+    ) {
+        return user;
+    }
     //    @GetMapping
     @GetMapping("/all")
     public List<User> getUsers() {

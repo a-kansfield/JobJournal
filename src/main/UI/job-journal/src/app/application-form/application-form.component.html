@@ -55,7 +55,7 @@
                             <label for="status" class="form-label">Status</label>
                             <select class="form-select" id="status" [(ngModel)]="application.status" name="status">
                                 <<ng-container *ngFor="let status of statuses">
-                                    <option [selected]="status.id === application.status.id" value="{{status.id}}">{{status.status.toLocaleLowerCase()}}</option>
+                                    <option value="{{status.id}}">{{status.status.toLocaleLowerCase()}}</option>
                                 </ng-container>
                                 
                             </select>

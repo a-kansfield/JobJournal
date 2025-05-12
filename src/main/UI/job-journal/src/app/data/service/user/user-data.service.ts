@@ -21,7 +21,7 @@ export class UserDataService {
   }
 
   retrieveUser(email: string, password: string){
-    return this.http.get<User>(`${this.springDomain}${this.endpoint}/user`);
+    return this.http.get<User>(`${this.springDomain}${this.endpoint}/validate-user`);
   }
 
   saveUser(user : User){

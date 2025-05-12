@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Application } from '../../model/application/application';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,18 @@ export class ApplicationDataService {
   }
   
   retrieveById(appID : number) {
+    
     return this.http.get<Application>(`${this.springDomain}${this.endpoint}/application-${appID}`)
   }
 
   retrieveByUserId(id : number) {
-    return this.http.get<Application[]>(`${this.springDomain}${this.endpoint}/all/user-${id}`);
+    let authString = this.createAuthenticationHeader();
+
+    let headers = new HttpHeaders({
+      Authorization: authString
+    })
+
+    return this.http.get<Application[]>(`${this.springDomain}${this.endpoint}/all/user-${id}`, {headers});
   }
 
   retrieveByStatus(userID : number, statusID : number){
@@ -50,5 +57,14 @@ export class ApplicationDataService {
 
   downloadFile(userID: number) {
     return this.http.get(`${this.springDomain}${this.endpoint}/user-${userID}/download-applications`, {observe:'response', responseType: 'blob'});
+  }
+
+
+  createAuthenticationHeader() {
+    let username = 'user';
+    let password = 'password';
+    let authString = 'Basic ' + window.btoa(username + ":" + password);
+
+    return authString;
   }
 }

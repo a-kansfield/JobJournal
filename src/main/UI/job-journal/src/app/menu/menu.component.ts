@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { User } from '../data/model/user/user';
 import { NgFor, NgIf } from '@angular/common';
 import { ApplicationDataService } from '../data/service/application/application-data.service';
-
+import { AuthService } from '../service/authentication/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -24,22 +24,22 @@ export class MenuComponent{
     private userService : UserDataService,
     private applicationService : ApplicationDataService,
     private router : Router,
-    private viewContainer : ViewContainerRef
+    public authService : AuthService
   ) {}
 
-  toggleView(toggle : boolean, component : any) {
+  // toggleView(toggle : boolean, component : any) {
     
-    if (toggle) {
-      this.viewContainer.clear();
-    } else {
-      this.viewContainer.createComponent(component);
-    }
+  //   if (toggle) {
+  //     this.viewContainer.clear();
+  //   } else {
+  //     this.viewContainer.createComponent(component);
+  //   }
 
-    if (component === this.loginComponent) {
-      toggle = !toggle;
-      this.loginVisible = toggle;
-    }
-  }
+  //   if (component === this.loginComponent) {
+  //     toggle = !toggle;
+  //     this.loginVisible = toggle;
+  //   }
+  // }
 
   downloadFile() {
     this.applicationService.downloadFile(this.userID).subscribe(
@@ -59,6 +59,6 @@ export class MenuComponent{
     )
   }
 
-
+  
 }
 
