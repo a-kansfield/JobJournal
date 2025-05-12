@@ -15,13 +15,20 @@ import { Router, RouterLink } from '@angular/router';
 export class ApplicationsComponent {
   applications! : Application[];
   query: string = '';
-  userID : number = 1;
+  userID : number = -1;
   constructor(
     private applicationService : ApplicationDataService,
     private router : Router
   ) {}
 
   ngOnInit(){
+
+      
+
+    if (sessionStorage.getItem('id') !== null){
+      let id : any = sessionStorage.getItem('id');
+      this.userID = parseInt(id);
+    }
     this.refreshApplications();
   }
 
