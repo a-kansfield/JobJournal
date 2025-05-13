@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix ="app")
 public class AppConfig {
-
+// This config class allows the dynamic setting of URLs from environment variables
     @NotNull
     String url;
 
