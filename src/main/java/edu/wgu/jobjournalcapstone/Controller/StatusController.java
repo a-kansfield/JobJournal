@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = {
         "http://localhost:4200",
-        "https://a-kansfield.github.io/job-journal/"
+        "https://a-kansfield.github.io/job-journal"
 })
 @RequestMapping("/status")
 public class StatusController {
