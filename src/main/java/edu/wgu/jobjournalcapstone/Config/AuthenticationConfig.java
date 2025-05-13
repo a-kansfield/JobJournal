@@ -35,14 +35,16 @@ public class AuthenticationConfig{
 
         http
                 .csrf(csrf -> csrf.disable());
-//                .cors(c -> c.configurationSource(request -> {
-//                    CorsConfiguration cors = new CorsConfiguration();
-//                    cors.setAllowedOrigins(List.of("*"));
-//                    cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
-//                    cors.setAllowedHeaders(List.of("*"));
-//                    cors.setExposedHeaders(List.of(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE));
-//                    return cors;
-//                }));
+
+        http.formLogin(f -> f.disable())
+                .cors(c -> c.configurationSource(request -> {
+                    CorsConfiguration cors = new CorsConfiguration();
+                    cors.setAllowedOrigins(List.of("*"));
+                    cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
+                    cors.setAllowedHeaders(List.of("*"));
+                    cors.setExposedHeaders(List.of(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE));
+                    return cors;
+                }));
 //        http.formLogin(formLogin -> formLogin
 //                .loginPage("/account/login")                // Maps to the page url
 //

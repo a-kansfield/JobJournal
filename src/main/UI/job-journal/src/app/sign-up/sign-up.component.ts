@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../data/model/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserDataService } from '../data/service/user/user-data.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,7 +26,6 @@ export class SignUpComponent {
   }
 
   saveUser() {
-
 
     this.userService.saveUser(this.user).subscribe(
       response => {
