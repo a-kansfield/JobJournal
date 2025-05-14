@@ -3,7 +3,7 @@
         <div class="glassDiv centerFlex" id="outerDiv">
             <div class="glassBorder boxContent" id="innerDiv">
                 
-
+                <div class="alert alert-warning" data-bs-theme="dark" role="alert" *ngIf="err">{{errorMsg}}</div>
                 <form (ngSubmit)="saveUser()">
                     <fieldset>
                         <div class="mb-3">
