@@ -37,7 +37,7 @@ public class AuthenticationConfig{
         http.formLogin(f -> f.disable())
                 .cors(c -> c.configurationSource(request -> {
                     CorsConfiguration cors = new CorsConfiguration();
-                    cors.setAllowedOrigins(List.of("https://a-kansfield.github.io/job-journal", "http://localhost:4200"));
+                    cors.setAllowedOrigins(List.of("*"));
                     cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
                     cors.setAllowedHeaders(List.of("*"));
                     cors.setExposedHeaders(List.of(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE));
