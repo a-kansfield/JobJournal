@@ -28,6 +28,7 @@
                                 <div class="accordionTitle">
                                     <h2 class="d-inline-flex textLeft roboto-normal">{{application.jobTitle}}</h2>
                                     <h2 *ngIf="application.dateApplied" class="d-inline-flex textRight roboto-thin">Applied: {{application.dateApplied | date: 'MM/dd/yyyy'}}</h2>
+                                    <h2 *ngIf="application.dateDue" class="d-inline-flex textRight roboto-thin">Due: {{application.dateDue| date: 'MM/dd/yyyy'}}</h2>
                                 </div>
                             </button>
                           </h2>

@@ -10,4 +10,6 @@ class JobjournalcapstoneApplicationTests {
 	void contextLoads() {
 	}
 
+
+
 }

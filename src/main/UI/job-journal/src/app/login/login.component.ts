@@ -33,7 +33,6 @@ export class LoginComponent {
         this.invalidLogin = true;
         console.log(error);
       }
-
     );
   }
   // loadContent() {    

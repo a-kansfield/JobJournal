@@ -4,6 +4,7 @@ import { User } from '../data/model/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserDataService } from '../data/service/user/user-data.service';
 import { HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../service/authentication/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,6 +20,7 @@ export class SignUpComponent {
     private userService : UserDataService,
     private route : ActivatedRoute,
     private router : Router,
+    private authService : AuthService
   ){}
 
   ngOnInit(){
@@ -30,6 +32,12 @@ export class SignUpComponent {
     this.userService.saveUser(this.user).subscribe(
       response => {
         console.log("User saved");
+        this.authService.executeAuthService(this.user.email, this.user.password).subscribe(
+          data => {
+            this.router.navigate(['applications']);
+          }
+        )
+
       }
     )
   }

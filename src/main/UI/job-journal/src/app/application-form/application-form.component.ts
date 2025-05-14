@@ -24,6 +24,8 @@ export class ApplicationFormComponent implements OnInit, AfterViewInit{
   userID!: number;
   tempDate : Date = new Date(Date.now());
   currentDateString! : string;
+  invalidEntry : boolean = false;
+  errorMsg : string = 'Please Enter a Valid Application'
 
   constructor(
     private statusService : StatusDataService,
@@ -99,21 +101,65 @@ export class ApplicationFormComponent implements OnInit, AfterViewInit{
   }
 
   saveApplication(){
+    this.invalidEntry = false;
     if (this.application != undefined) {
       this.application.userID = this.userID;
-      this.application.dateUpdated = new Date(Date.now());
-      console.log("Application Sent: " + this.applicationSent)
-      if (this.applicationSent === true) {
-          this.application.dateDue = null;
-      } else if (this.applicationSent === false){
-          this.application.dateApplied = null;
-      }
 
-      this.applicationService.createApplication(this.application.userID, this.application).subscribe(
-        data => {
-          this.router.navigate(['applications']);
-        }
-      );
+      this.checkNullFields(this.application);
+      this.nullifyDates(this.application);
+      this.onlyOneDateNull(this.application);
+
+      // this.application.dateUpdated = new Date(Date.now());
+      // console.log("Application Sent: " + this.applicationSent)
+      // if (this.applicationSent === true) {
+      //     this.application.dateDue = null;
+      // } else if (this.applicationSent === false){
+      //     this.application.dateApplied = null;
+      // }
+
+      // if (this.application.dateApplied === null && this.application.dateDue === null) {
+      //     this.invalidEntry = true;
+      // } else {
+      //   this.invalidEntry = false;
+      // }
+      if (!this.invalidEntry) {
+        this.applicationService.createApplication(this.application.userID, this.application).subscribe(
+          data => {
+            this.router.navigate(['applications']);
+          }
+        );
+      }
+      
+
     }
+  }
+
+  nullifyDates(application : Application) {
+      application.dateUpdated = new Date(Date.now());
+      if (this.applicationSent === true) {
+          application.dateDue = null;
+      } else if (this.applicationSent === false){
+          application.dateApplied = null;
+      }
+      this.application = application;
+  }
+
+  onlyOneDateNull(application: Application) {
+      if (application.dateApplied === null && application.dateDue === null) {
+          this.invalidEntry = true;
+          this.errorMsg = 'You must have an apply date or a due date.'
+      }
+  }
+
+  checkNullFields(application: Application) {
+    if (this.application.jobTitle == '') {
+      this.invalidEntry = true;
+      this.errorMsg = 'Please enter a Job Title'
+    }
+    if (this.application.employer == '') {
+      this.invalidEntry = true;
+      this.errorMsg = 'Please enter an Employer'
+    }
+    
   }
 }

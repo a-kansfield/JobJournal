@@ -4,6 +4,7 @@
             <div class="glassBorder " id="innerDiv">
                 <h1>New Application</h1>
                 <div class="boxContent">
+                    <div class="alert alert-warning" data-bs-theme="dark" role="alert" *ngIf="invalidEntry">{{errorMsg}}</div>
                     <form (ngSubmit)="saveApplication()">
                         <fieldset class="d-none">
                             <div class="mb-3">

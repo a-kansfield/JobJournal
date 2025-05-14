@@ -23,7 +23,7 @@ public class ValidatorService {
             return false;
         }
         //Rule 2: Date applied cannot be earlier than the date the employer posted the listing
-        if (dateApplied.isBefore(datePosted)){
+        if (dateApplied != null && datePosted != null && dateApplied.isBefore(datePosted)){
             return false;
         }
         //Rule 3: Date Due cannot be set before current date
@@ -32,6 +32,10 @@ public class ValidatorService {
         }
         //Rule 4: Date Due and Date Applied cannot both be set at the same time.
         if (dateDue != null && dateApplied != null){
+            return false;
+        }
+        //Rule 5: Date Due and Date Applied cannot both be empty.
+        if (dateDue == null && dateApplied == null){
             return false;
         }
         return true;

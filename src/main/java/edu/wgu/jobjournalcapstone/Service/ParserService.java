@@ -11,6 +11,9 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -94,8 +97,11 @@ public class ParserService{
 
 
         // DATE VALIDATION
+
         if (validatorService.isDateValid(application)){
             applicationDAO.save(application);
+        } else {
+            throw new UnsupportedOperationException("Dates are invalid");
         }
 
         return application;

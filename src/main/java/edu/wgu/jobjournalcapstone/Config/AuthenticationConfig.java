@@ -33,36 +33,24 @@ public class AuthenticationConfig{
                 .requestMatchers(optionsMatcher).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/**")).authenticated());
 
-        http
-                .csrf(csrf -> csrf.disable());
 
         http.formLogin(f -> f.disable())
                 .cors(c -> c.configurationSource(request -> {
                     CorsConfiguration cors = new CorsConfiguration();
-                    cors.setAllowedOrigins(List.of("*"));
+                    cors.setAllowedOrigins(List.of("https://a-kansfield.github.io/job-journal", "http://localhost:4200"));
                     cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
                     cors.setAllowedHeaders(List.of("*"));
                     cors.setExposedHeaders(List.of(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE));
                     return cors;
                 }));
-//        http.formLogin(formLogin -> formLogin
-//                .loginPage("/account/login")                // Maps to the page url
-//
-//                .loginProcessingUrl("/account/login"));     // Maps to the specified url after processing
-//
-//
-//        http.logout(formLogout -> formLogout
-//                .invalidateHttpSession(true)
-//                // this is the URL that will log a user out
-//                // this is another URL that is included with spring security - we do not have a controller method for this
-//                .logoutUrl("/account/logout")
-//                // after spring logs the user out then it will goto this URL
-//                .logoutSuccessUrl("/"));
+        http
+                .csrf(csrf -> csrf.disable());
+
         http.httpBasic(withDefaults());
 
         return http.build();
     }
-
+// Spring Security Password Encoder Causes issues with incoming header, jasypt used instead.
 //    @Bean(name = "passwordEncoder")
 //    public PasswordEncoder getPasswordEncoder() {
 //        return new BCryptPasswordEncoder();

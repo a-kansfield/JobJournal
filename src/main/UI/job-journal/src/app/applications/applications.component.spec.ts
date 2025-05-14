@@ -20,4 +20,5 @@ describe('ApplicationsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

@@ -19,7 +19,7 @@ export class MenuComponent{
 
   user? : User;
   loginVisible : boolean = false;
-  userID : number = 1;
+  userID : any = 1;
   constructor(
     private userService : UserDataService,
     private applicationService : ApplicationDataService,
@@ -42,6 +42,11 @@ export class MenuComponent{
   // }
 
   downloadFile() {
+    let stringID : string | null = sessionStorage.getItem('id')
+    if (typeof stringID === 'string'){
+      this.userID = parseInt(stringID);
+    }
+    
     this.applicationService.downloadFile(this.userID).subscribe(
       response => {
         let blob: Blob = response.body as Blob;

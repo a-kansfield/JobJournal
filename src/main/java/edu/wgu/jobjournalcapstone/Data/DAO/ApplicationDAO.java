@@ -33,4 +33,6 @@ public interface ApplicationDAO extends JpaRepository<Application, Long> {
     @Transactional
     @Query(value = "DELETE FROM applications WHERE id = :appID", nativeQuery = true)
     void delete(Long appID);
+
+    void deleteAllByUser(User user);
 }

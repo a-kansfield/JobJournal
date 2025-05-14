@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from '../../data/model/user/user';
 import { UserDataService } from '../../data/service/user/user-data.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AuthService {
   private springDomain! : string;
   constructor(
     private http : HttpClient,
-    private userService : UserDataService
+    private userService : UserDataService,
+    private router : Router,
   ) { 
     this.springDomain = environment.springDomain;
   }
@@ -75,6 +77,7 @@ export class AuthService {
     sessionStorage.removeItem('authenticatedUser');
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('id');
+    this.router.navigate(['']);
   }
   
 }
